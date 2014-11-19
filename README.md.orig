@@ -1,8 +1,73 @@
-busca-cpf-jersey
-================
+#include <stdio.h>
 
-<<<<<<< HEAD
-brincadeira com jersey
-=======
-brincadeira sem graça com jersey e jetty
->>>>>>> 82380faadc0480a39ac6948d9507e4724b00edd2
+typedef struct{
+    char nome[50];
+    char telefone[10];
+} contato;
+
+contato quebra(char* str) {
+  contato agenda;
+  strcpy(agenda.nome, strtok(str,"-"));
+  strcpy(agenda.telefone, strtok(NULL,"-"));
+  return agenda;
+}
+int line_count(FILE *n) {
+    char temp[256];
+    int lines = 0;
+	while( (fgets(temp, sizeof(temp), n))!=NULL ) {
+		if(temp[0] != '#') {
+			++lines;
+		}
+	}
+    rewind(n);
+    return lines;
+}
+
+int main(void)
+{
+	char url[]="telefones.txt", info[256];
+	FILE *arq;
+	arq = fopen(url, "r");
+	int qtd_linhas = line_count(arq);
+	contato contatos[qtd_linhas];
+printf("%s", "                      _...----..._\n");
+printf("%s", "                   ,-'    ,-.     `-.\n");
+printf("%s", "                 ,' ,-.  ( 4 )   ,-. `.\n");
+printf("%s", "               ,'  ( 5 )  `-'   ( 3 )  `.\n");
+printf("%s", "              / ,-. `-',-''  ``-.`-' ,-. \\\n");
+printf("%s", "             / ( 6 ) ,'          `. ( 2 ) \\\n");
+printf("%s", "            :   `-' /    AGENDA     \ `-'   :\n");
+printf("%s", "            | ,-.  :    ________    :  ,-. |\n");
+printf("%s", "            |( 7 ) |   |________|   | ( 1 )|\n");
+printf("%s", "            | `-'  :                ;  `-' |\n");
+printf("%s", "            :   ,-. \  TELEFONICA  /       ;\n");
+printf("%s", "             \ ( 8 ) `.          ,'(`.     /\n");
+printf("%s", "              \ `-' ,-.`-..__..-'   \\`-. /\n");
+printf("%s", "               `.  ( 9 )   ,-.       \\ ,'\n");
+printf("%s", "                 `. `-'   ( 0 )      ,'\n");
+printf("%s", "                   `-._    `-'   _.-'\n");
+printf("%s", "                       ```----''' \n");
+	printf("%s", "Lendo arquivo e carregando contatos da agenda ...");
+	
+	if(arq == NULL) {
+			printf("Erro, nao foi possivel abrir o arquivo\n");
+	} else {
+        int count = 0;
+		while( (fgets(info, sizeof(info), arq))!=NULL ) {
+               if(info[0] != '#') {
+                      contatos[count++] = quebra(info);
+                }
+                                        
+         }
+    }
+	printf("\n\n########## FOR ##########\n\n\n");
+	int i;
+	for(i = 0; i < qtd_linhas; i++) {
+          printf("Nome: %s", contatos[i].nome);
+	      printf("Telefone: %s", contatos[i].telefone);
+    }
+	
+	fclose(arq);
+	system("pause");
+	return 0;
+}
